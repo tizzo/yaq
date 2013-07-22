@@ -1,0 +1,23 @@
+{
+  "name": "yaq",
+  "version": "0.0.0",
+  "description": "Yet Another (Redis Backed) Queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tizzo/yaq.git"
+  },
+  "keywords": [
+    "redis",
+    "queue"
+  ],
+  "author": "Howard Tyson",
+  "license": "BSD",
+  "dependencies": {
+    "redis": "~0.8.4",
+    "fakeredis": "~0.1.1"
+  }
+}
