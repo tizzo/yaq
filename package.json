@@ -18,6 +18,11 @@
   "license": "BSD",
   "dependencies": {
     "redis": "~0.8.4",
-    "fakeredis": "~0.1.1"
+    "fakeredis": "~0.1.1",
+    "redis-scripto": "~0.1.2"
+  },
+  "devDependencies": {
+    "should": "~1.2.2",
+    "mocha": "~1.12.0"
   }
 }
