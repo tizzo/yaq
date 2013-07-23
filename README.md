@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tizzo/yaq.png?branch=master)](https://travis-ci.org/tizzo/yaq)
 
-Yet Another ([Redis Based](http://redis.io)) Queue system for [Node.js](http://nodejs.org/). This simple queuing system focuses on simplicity, reliability, and on the ability to mock the queue without a real redis instance so that a real redis instance is not a requirement for testing all projects leveraging Yaq.
+Yet Another ([Redis Based](http://redis.io)) Queue system for [Node.js](http://nodejs.org/). This simple queuing system focuses on simplicity, reliability, and on the ability to mock the queue without a real redis instance so that a real redis instance is not a requirement for testing projects leveraging Yaq.
 
 ## Features
 
