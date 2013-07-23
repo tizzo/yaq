@@ -1,1 +1,1 @@
-module.exports.Yaq = require('./lib/yaq');
+module.exports = require('./lib/yaq');
