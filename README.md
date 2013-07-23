@@ -4,6 +4,12 @@
 
 Yet Another ([Redis Based](http://redis.io)) Queue system for [Node.js](http://nodejs.org/). This simple queuing system focuses on simplicity, reliability, and on the ability to mock the queue without a real redis instance so that a real redis instance is not a requirement for testing all projects leveraging Yaq.
 
+## Features
+
+  - Mockable
+  - Reliable
+  - Horizontally scalable
+
 ## Redis Schema
 
   - yaq:active-queue - A redis list. Names of items awaiting processing.
