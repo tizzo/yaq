@@ -10,9 +10,37 @@ Yet Another ([Redis Based](http://redis.io)) Queue system for [Node.js](http://n
   - Reliable
   - Horizontally scalable
 
+## Installation
+
+
+
+## Usage
+
+Creating a new queue for creating or processing jobs:
+
+```javascript
+var Yaq = require('Yaq');
+var client = require('redis').createClient();
+var queue = new Yaq(client);
+```
+
+Posting a new job
+```javascript
+queue.push({ some: 'data', more: 'data' });
+````
+Processing a posted job
+```
+queue.pop(function(
+```
+
+Responding to job completion
+```
+
+```
+
 ## Redis Schema
 
-  - yaq:active-queue - A redis list. Names of items awaiting processing.
+  - yaq:available-queue - A redis list. Names of items awaiting processing.
   - yaq:in-progress-queue - A sorted set. Items currently being processed processing.
   - yaq:in-progress - A sorted list. Names of items currently being processed.
   - yaq:in-progress:timeout - A sorted set. Items currently being processed processed scored by their timeout.
