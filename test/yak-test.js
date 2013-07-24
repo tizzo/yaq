@@ -63,8 +63,7 @@ describe('Yaq', function() {
   });
   describe('#pop', function() {
     it('should get the oldest item from the list', function(done) {
-      yaq.pop(function(error, job, jobCompleteCallback, itemId, timeOut) {
-        should.not.exist(error);
+      yaq.pop(function(job, jobCompleteCallback, itemId, timeOut) {
         job.should.equal('foo');
         var multi = client.multi();
         multi.zrange(yaq.inProgressTimeoutKey, 0, -1, 'WITHSCORES');
@@ -79,7 +78,7 @@ describe('Yaq', function() {
       });
     });
     it('should properly unserialize objects', function(done) {
-      yaq.pop(function(error, job, jobCompleteCallback, itemId, timeOut) {
+      yaq.pop(function(job, jobCompleteCallback, itemId, timeOut) {
         job.foo.should.equal('bar');
         jobCompleteCallback(function(error) {
           done(error);
@@ -88,9 +87,9 @@ describe('Yaq', function() {
     });
   });
   describe('#keepAlive', function() {
-    it ('should set a new timeout for the item.', function(done) {
+    it('should set a new timeout for the item.', function(done) {
       yaq.push( { bar: 'baz' }, function(error, itemId) {
-        yaq.pop(function(error, job, jobCompleteCallback, itemId, timeOut) {
+        yaq.pop(function(job, jobCompleteCallback, itemId, timeOut) {
           job.bar.should.equal('baz');
           client.zscore(yaq.inProgressTimeoutKey, itemId, function(error, currentTime) {
             timeOut.should.equal(timeOut);
