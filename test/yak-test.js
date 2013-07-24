@@ -110,4 +110,32 @@ describe('Yaq', function() {
   });
   describe('#bpop', function() {
   });
+  describe('#emit', function() {
+    it('should emit a jobComplete event when a job completes', function(done) {
+      var newJobId = null;
+      yaq.on('jobComplete', function(job, jobId) {
+        job.item.should.equal('text');
+        jobId.should.equal(newJobId);
+        done();
+      });
+      yaq.push({ item: 'text' }, function(error, id) {
+        newJobId = id;
+        yaq.pop(function(job, jobCompleteCallback, itemId, timeOut) {
+          jobCompleteCallback();
+        });
+      });
+    });
+  });
+  describe('#deleteJob', function() {
+    it('should remove a job from the queue', function(done) {
+      yaq.push({some: 'var'}, function(error, id) {
+        yaq.deleteJob(id, function(error) {
+          yaq.pop(function(item) {
+            should.not.exist(item);
+            done(error);
+          });
+        });
+      });
+    });
+  });
 });
