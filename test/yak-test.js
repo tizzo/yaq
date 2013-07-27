@@ -128,11 +128,16 @@ describe('Yaq', function() {
   });
   describe('#deleteJob', function() {
     it('should remove a job from the queue', function(done) {
-      yaq.push({some: 'var'}, function(error, id) {
-        yaq.deleteJob(id, function(error) {
-          yaq.pop(function(item) {
-            should.not.exist(item);
-            done(error);
+      yaq.getAvailableQueueLength(function(error, initialLength) {
+        yaq.push({some: 'var'}, function(error, id) {
+          yaq.deleteJob(id, function(error) {
+            yaq.getAvailableQueueLength(function(error, newLength) {
+              newLength.should.equal(initialLength);
+              yaq.pop(function(item) {
+                should.not.exist(item);
+                done(error);
+              });
+            });
           });
         });
       });
