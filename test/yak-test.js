@@ -113,7 +113,7 @@ describe('Yaq', function() {
   describe('#emit', function() {
     it('should emit a jobComplete event when a job completes', function(done) {
       var newJobId = null;
-      yaq.on('jobComplete', function(job, jobId) {
+      yaq.once('jobComplete', function(job, jobId) {
         job.item.should.equal('text');
         jobId.should.equal(newJobId);
         done();
@@ -136,6 +136,35 @@ describe('Yaq', function() {
               yaq.pop(function(item) {
                 should.not.exist(item);
                 done(error);
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+  describe('#getAvailableQueueLength', function() {
+    it('should report the number of items in the available queue', function(done) {
+      yaq.getAvailableQueueLength(function(error, initialLength) {
+        yaq.push({  some: 'item'  }, function(error, jobId) {
+          yaq.getAvailableQueueLength(function(error, newLength) {
+            newLength.should.equal(initialLength + 1);
+            done(error);
+          });
+        });
+      });
+    });
+  });
+  describe('#getInProgressQueueLength', function() {
+    it('should report the number of items currenty in progress', function(done) {
+      yaq.getInProgressQueueLength(function(error, initialLength) {
+        yaq.pop(function(job, jobCompleteCallback) {
+          yaq.getInProgressQueueLength(function(error, currentlyProcessingLength) {
+            currentlyProcessingLength.should.equal(initialLength + 1);
+            jobCompleteCallback(function(error) {
+              yaq.getInProgressQueueLength(function(error, doneProcessingLength) {
+                doneProcessingLength.should.equal(initialLength);
+                done();
               });
             });
           });
