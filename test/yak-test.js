@@ -40,7 +40,7 @@ describe('Yaq', function() {
       it('should store a string in the queue', function(done) {
         yaq.push('foo', function(error, itemId) {
           client.lindex(yaq.availableQueueKey, 0, function(error, id) {
-            id.should.equal(itemId);
+            parseInt(id).should.equal(itemId);
             client.get(yaq.itemKeyPrefix + itemId, function(error, record) {
               record.should.equal('"foo"');
               done(error);
@@ -51,7 +51,7 @@ describe('Yaq', function() {
       it('should store an object in the queue', function(done) {
         yaq.push({ foo: 'bar' }, function(error, itemId) {
           client.lindex(yaq.availableQueueKey, 0, function(error, id) {
-            id.should.equal(itemId);
+            parseInt(id).should.equal(itemId);
             client.get(yaq.itemKeyPrefix + itemId, function(error, record) {
               record.should.equal('{"foo":"bar"}');
               done(error);
@@ -115,7 +115,7 @@ describe('Yaq', function() {
       var newJobId = null;
       yaq.once('jobComplete', function(job, jobId) {
         job.item.should.equal('text');
-        jobId.should.equal(newJobId);
+        parseInt(jobId).should.equal(newJobId);
         done();
       });
       yaq.push({ item: 'text' }, function(error, id) {
