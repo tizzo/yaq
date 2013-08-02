@@ -29,12 +29,18 @@ Posting a new job
 queue.push({ some: 'data', more: 'data' });
 ````
 Processing a posted job
-```
-queue.pop(function(
+```javascript
+yaq.pop(function(job, jobCompleteCallback, itemId, timeOut) {
+  // Do something...
+  jobCompleteCallback();
+});
 ```
 
 Responding to job completion
-```
+```javascript
+yaq.on('jobComplete', function(job, jobId) {
+  // Do something...
+});
 
 ```
 
