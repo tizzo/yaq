@@ -172,4 +172,24 @@ describe('Yaq', function() {
       });
     });
   });
+  describe('#pollForTimeouts', function() {
+    it('should find jobs that have timed out', function(done) {
+      // A negative job timeout should set the timeout to be in the past
+      // making it ripe for pruning.
+      yaq.push({ payload: 'pandas', jobTimeOut: -100 }, function(error, newId) {
+        yaq.pop(function(error, item) {
+          var id = yaq.pollForTimeouts(1, function(job, jobId) {
+            parseInt(jobId).should.equal(newId);
+            job.payload.should.equal('pandas');
+          });
+          // Stop polling after 2 miliseconds, should ensure at least
+          // one poll but sometimes 2.
+          setTimeout(function() {
+            clearInterval(id);
+            done();
+          }, 2);
+        });
+      });
+    });
+  });
 });
