@@ -46,6 +46,8 @@ yaq.on('jobComplete', function(job, jobId) {
 
 ## Redis Schema
 
+  - yaq:item:[id] - A string of serialized json with the payload of a job.
+  - yaq:id-highwater - An inrementing integer providing unique job ids.
   - yaq:available-queue - A redis list. Names of items awaiting processing.
   - yaq:in-progress-queue - A sorted set. Items currently being processed processing.
   - yaq:in-progress - A sorted list. Names of items currently being processed.
