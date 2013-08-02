@@ -52,4 +52,3 @@ yaq.on('jobComplete', function(job, jobId) {
   - yaq:in-progress-queue - A sorted set. Items currently being processed processing.
   - yaq:in-progress - A sorted list. Names of items currently being processed.
   - yaq:in-progress:timeout - A sorted set. Items currently being processed processed scored by their timeout.
-  - yaq:id-highwater - An incremented field that generates unique ids for tasks.
